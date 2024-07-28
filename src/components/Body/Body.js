@@ -1,6 +1,7 @@
 import ResCard from "../ResCard/ResCard";
 import { useEffect, useState } from "react";
 import Shimmer from "../Shimmer";
+import { Link } from "react-router-dom";
 
 
 
@@ -16,7 +17,6 @@ const Body=()=>{
     useEffect(()=>{
        fetchData();
     },[]);
-    
     const fetchData=async ()=>{
         const response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&page_type=DESKTOP_WEB_LISTING");
         const json = await response.json();
@@ -65,15 +65,16 @@ const Body=()=>{
                 Top Rated Restaurant</button>
             </div>
             <div className="res-container">
-            {filterlistofres.map((restaurant, index) => (
+            {filterlistofres.map((restaurant) => (
                     restaurant.info && (
-                        <ResCard
-                            key={index}
+                        <Link  className="link" key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}>
+                            <ResCard
                             resName={restaurant.info.name}
                             cuisine={restaurant.info.cuisines.join(", ")}
                             rating={restaurant.info.avgRating}
                             logo={restaurant.info.cloudinaryImageId}
                         />
+                        </Link>
                     )
                 ))}
             </div>
