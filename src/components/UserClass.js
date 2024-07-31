@@ -4,36 +4,48 @@ class UserClass extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            count:0,
+            Userinfo:{
+                name:"Dummy",
+                location:"Default",
+                imageurl:"httpdummy.jpg"
+            }
         }
-        console.log(this.props.name +"child contructor");
+        console.log("child contructor");
 
     }
 
-    componentDidMount(){
-        console.log(this.props.name +"child component did mount");
+     async componentDidMount(){
+        console.log("child component did mount");
 
         //api calls
+        const  data = await fetch("https://api.github.com/users/akshaymarch7");
+        const json =  await data.json();
+        console.log(json);
+
+
+        this.setState({
+                Userinfo:json
+        })
+
+
+
+
+    }
+    componentDidUpdate(){
+        console.log("component did update");
     }
 
 
     render(){
-        console.log(this.props.name +"child render");
-        const {name,location,contact} =this.props
-        const {count}=this.state
+        console.log("child render")
+
+
+        const {name,location,avatar_url} = this.state.Userinfo;
         return (
             <div className="user-card">
-            <h1>Count:{count}</h1>
-            <button onClick={()=>{
-
-                this.setState({
-                    count:this.state.count + 1
-                })
-
-            }}>Count increa</button>
             <h2>Name:{name} </h2>
             <h3>Location:{location}</h3>
-            <h4>Contact:{contact}</h4>
+            <img src={avatar_url}></img>
 
         </div>
         )
@@ -42,3 +54,29 @@ class UserClass extends React.Component{
 
 
 export default UserClass;
+
+
+/**
+ * ---mounting---
+ * constructor(dummy)
+ * render (dummy)
+ *      <html dummy>
+ * components did mount 
+ *   <api calls>
+ *   <state varialbe update with api>
+ * 
+ * ---update -----
+ * 
+ * 
+ *     render(api data)
+ *    <html (new api data?)
+ * 
+ * 
+ * component did update
+ * 
+ */
+
+
+
+
+
