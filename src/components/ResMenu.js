@@ -21,6 +21,7 @@ const ResMenu = () => {
 
         setResInfo(res_info);
         setMenuInfo(itemCards)
+        console.log(MenuInfo);
     };
     
     
@@ -37,13 +38,17 @@ const ResMenu = () => {
             <h1>{name}</h1>
             <p>{cuisines?.join(", ")} - {costForTwoMessage}</p>
             <h2>Menu</h2>
-            <ul>
+            <ul >
                 {MenuInfo.map(item=> (
                 
-                <li key={item.card.info.id}>
-                    {item.card.info.name} - {" Rs."} 
-                    {item.card.info.price/100 || item.card.info.defaultPrice }
+                <div className="menulist">
+                <li className="menu-no" key={item.card.info.id}>
+                        {item.card.info.name} - {" Rs."}
+                        {item.card.info.price / 100 || item.card.info.defaultPrice}
                 </li>
+                   
+                <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" + item.card.info.imageId}></img>
+                </div>
 
             ))}
                 
