@@ -1,4 +1,4 @@
-import {img_url} from "../../utils/constants"
+import {img_url} from "../utils/constants"
 const ResCard=(props)=>{
     const{resName,cuisine,rating,logo}=props;
     return(
