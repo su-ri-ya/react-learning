@@ -43,14 +43,15 @@ const Body=()=>{
         <Shimmer />
     ):(
 
-        <div className="body">
-            <div className="filter">
-                <div className="search">
-                    <input type="text" className="search-box" value={searchtext}  onChange={(e)=>{
+        <div className="body m-6 p-6">
+            <div className="filter flex">
+                <div className="search m-4 p-4">
+                    <input type="text" className="border border-solid border-black" value={searchtext}  onChange={(e)=>{
                             setsearchtext(e.target.value)
                             
                     }}/>
-                    <button onClick={()=>{
+                    <button className="px-4 bg-blue-400 m-4 py-2 rounded-lg" 
+                        onClick={()=>{
                         console.log(searchtext);
                          const filterres=listofres.filter((res)=>
                              res.info.name.toLowerCase().includes(searchtext.toLowerCase())
@@ -63,16 +64,20 @@ const Body=()=>{
                     }}>search</button>
 
                 </div>
-                <button className="filter-btn" onClick={()=>{
+                <div className="m-4 p-4 flex items-center">
+                <button className="px-4 py-2 bg-gray-400 rounded-lg" onClick={()=>{
                     const filterlist=listofres.filter(
                         (res)=>res.info.avgRating>4
                     );
                     setlistofres(filterlist)
-                }}
-                >
-                Top Rated Restaurant</button>
+                     }}
+                    >
+                    Top Rated Restaurant</button>
+
+                </div>
+                
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap">
             {filterlistofres.map((restaurant) => (
                     restaurant.info && (
                         <Link  className="link" key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}>

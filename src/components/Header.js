@@ -14,29 +14,24 @@ export const Header=()=>{
 
     const onlinestatus =useOnlineStatus()
     return(
-        <div className="header">
+        <div className="flex justify-between bg-blue-100 shadow-lg sm:bg-yellow-300">
             <div className="logo">
-                <img src={LOGO_URL}/>
-
+                <img  className="w-36" src={LOGO_URL}/>
             </div>
-            <div className="nav-items">
-                <ul>
-                    <li>
-                        Online status: {onlinestatus? "🟢":"🔴"}
-                    </li>
-                    <li><Link className="link" to={"/"}>home</Link></li>
-                    <li><Link  className="link "to="/about">about</Link></li>
-                    <li><Link className="link" to={"/contact"}>contact</Link></li>
-                    <li><Link className="link">cart</Link></li>
-                    <button className="login" onClick={()=>{
+            <div className="flex items-center">
+                <ul className="flex p-4 m-4">
+                    <li className="px-4 text-xl font-bold text-blue-500 uppercase">Online status: {onlinestatus? "🟢":"🔴"}</li>
+                    <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link className="link" to={"/"}>home</Link></li>
+                    <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link  className="link "to="/about">about</Link></li>
+                    <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link className="link" to={"/contact"}>contact</Link></li>
+                    <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link className="link">cart</Link></li>
+                    <button className="login px-4 bg-red-400" onClick={()=>{
                     btnName==="login"?
                     setbtnName("Log out")
                     :setbtnName("login")
                     }}>{btnName}</button>
                 </ul>
-
             </div>
-            
         </div>
     )
 }
