@@ -15,7 +15,7 @@ class  About extends React.Component{
     }
 
     componentWillUnmount(){
-        console.log("component did unbound");
+        //console.log("component did unbound");
     }
     render(){
         // console.log("parent render");

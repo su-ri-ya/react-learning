@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react"
+import React, { lazy, Suspense, useState } from "react"
 import ReactDOM from 'react-dom/client'
 import Header from './components/Header'
 import Body from "./components/Body";
@@ -7,16 +7,24 @@ import About from "../src/components/About"
 // import Contact from "./components/Contact";
 import Error from "../src/components/Error"
 import ResMenu from "./components/ResMenu";
+import Usercontext from "./utils/UserContext";
 
 const Contact = lazy(()=>import("./components/Contact"))
 
 const AppLayout=()=>{
-    
+    const [userName,setusername]=useState()
     return(
-        <div className="app">
-            <Header />
-            <Outlet />
-        </div>
+            <Usercontext.Provider value={{UserName:userName,setusername}}>
+                <div className="app">
+                    
+                    <Header />
+                    
+                    <Outlet />
+                </div>
+
+            </Usercontext.Provider>
+            
+        
     )
 }
 

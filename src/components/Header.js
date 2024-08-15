@@ -1,9 +1,12 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import {LOGO_URL} from "../utils/constants"
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import Usercontext from "../utils/UserContext";
 export const Header=()=>{
     const[btnName,setbtnName]=useState("Log IN")
+
+    const {UserName}= useContext(Usercontext)
 
     //if no dependency array =>ueeffect is called on every render
     //if dependency array is empty => useeffect is called on initial render(just once)
@@ -14,7 +17,7 @@ export const Header=()=>{
 
     const onlinestatus =useOnlineStatus()
     return(
-        <div className="flex justify-between bg-blue-100 shadow-lg sm:bg-yellow-300">
+        <div className="flex justify-between bg-blue-100 shadow-lg sm:bg-skyblue-500">
             <div className="logo">
                 <img  className="w-36" src={LOGO_URL}/>
             </div>
@@ -25,11 +28,12 @@ export const Header=()=>{
                     <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link  className="link "to="/about">about</Link></li>
                     <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link className="link" to={"/contact"}>contact</Link></li>
                     <li className="px-4 text-xl font-bold text-blue-500 uppercase"><Link className="link">cart</Link></li>
-                    <button className="login px-4 bg-red-400" onClick={()=>{
+                    <button className="login px-4 bg-black text-white rounded-lg" onClick={()=>{
                     btnName==="login"?
                     setbtnName("Log out")
                     :setbtnName("login")
                     }}>{btnName}</button>
+                    <li className="px-4 text-xl">{UserName}</li>
                 </ul>
             </div>
         </div>

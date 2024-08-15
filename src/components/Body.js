@@ -1,8 +1,10 @@
 import ResCard from "../components/ResCard"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import Usercontext from "../utils/UserContext";
+
 
 
 
@@ -38,7 +40,8 @@ const Body=()=>{
         )
         
     }
-
+    const {setusername,UserName} =useContext(Usercontext)
+    
     return listofres.length===0? (
         <Shimmer />
     ):(
@@ -72,7 +75,12 @@ const Body=()=>{
                     setlistofres(filterlist)
                      }}
                     >
-                    Top Rated Restaurant</button>
+                    Top Rated Restaurant
+                </button>
+                <label className="p-4">UserName:   </label>
+                <input className=" border border-black p-4" placeholder="enter the username" 
+                value={UserName} 
+                onChange={(e)=> setusername(e.target.value)}></input>
 
                 </div>
                 

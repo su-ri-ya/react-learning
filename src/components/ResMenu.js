@@ -1,10 +1,14 @@
 import Shimmer from "./Shimmer";
 import { useParams } from 'react-router-dom';
 import useResMenu from "../utils/useResMenu";
+import ResCategory from "./ResCategory";
+import { useState } from "react";
 
 const ResMenu = () => {
     const { resId } = useParams();
     const resInfo = useResMenu(resId);
+
+    const [showIndex,setshowIndex]=useState(null)
     
     // Safeguard against null or undefined
     if (!resInfo) {
@@ -13,8 +17,14 @@ const ResMenu = () => {
 
     const res_Info = resInfo.cards?.[2]?.card?.card?.info;
     const itemCards = resInfo.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[2]?.card?.card?.itemCards;
-    console.log(resInfo);
-    console.log(itemCards);
+
+    const categories =resInfo.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c=> c.card?.card?.["@type"]=== 
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    )
+    // console.log(categories);
+    
+    
+    
     if (!res_Info || !itemCards) {
         return <Shimmer />;
     }
@@ -22,26 +32,19 @@ const ResMenu = () => {
     const { name, cuisines, costForTwoMessage } = res_Info;
     
     return (
-        <div className="menu">
-            <h1>{name}</h1>
-            <p>{cuisines?.join(", ")} - {costForTwoMessage}</p>
-            <h2>Menu</h2>
-            <ul>
-                {itemCards.map((item, index) => (
-                    <div className="menulist" key={index}>
-                        <li className="menu-no">
-                            {item.card.info.name} - {" Rs."}
-                            {item.card.info.price / 100 || item.card.info.defaultPrice}
-                        </li>
-                        {item.card.info.imageId && (
-                            <img 
-                                src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${item.card.info.imageId}`} 
-                                alt={item.card.info.name}
-                            />
-                        )}
-                    </div>
-                ))}
-            </ul>
+        <div className="text-center">
+            <h1 className="font-bold my-6 text-2xl">{name}</h1>
+            <p className=" text-2xl">
+                {cuisines?.join(", ")} - {costForTwoMessage}
+            </p>
+            {categories.map((category,index)=>(
+                <ResCategory 
+                key={category?.card?.card.title}  
+                data ={category?.card?.card}
+                showItems={index ===showIndex ? true:false}
+                setshowIndex={()=> setshowIndex(index)}
+                />
+            ))}
         </div>
     );
 };
